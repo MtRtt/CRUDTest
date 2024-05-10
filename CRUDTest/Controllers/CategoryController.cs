@@ -29,18 +29,37 @@ namespace CRUDTest.Controllers
         public IActionResult Create(Category obj)
         {
             //create custom error message 
-            if(obj.Name == obj.DisplayOrder.ToString())
+            if (obj.Name == obj.DisplayOrder.ToString())
             {
                 ModelState.AddModelError("Custom Error", "مقدار فیلد ترتیب نمایش نباید با مقدار فیلد نام یکسان باشد");
             }
             //check for model data is correct
-           if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _db.Categories.Add(obj);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
-           return View();
+            return View();
+        }
+
+
+        //edit data action with id
+        public IActionResult Edit(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var categoryFromDb = _db.Categories.Find(id);
+            //var CategoryFromDbFirst=_db.Categories.FirstOrDefault(u=>u.Id== id);
+            //var CategoryFromDbSingle = _db.Categories.SingleOrDefault(u => u.Id == id);
+
+            if (categoryFromDb == null)
+            {
+                return NotFound();
+            }
+            return View(categoryFromDb);
         }
     }
 }
