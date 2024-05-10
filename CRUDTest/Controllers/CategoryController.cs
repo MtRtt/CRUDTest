@@ -28,6 +28,11 @@ namespace CRUDTest.Controllers
         [HttpPost]
         public IActionResult Create(Category obj)
         {
+            //create custom error message 
+            if(obj.Name == obj.DisplayOrder.ToString())
+            {
+                ModelState.AddModelError("Custom Error", "مقدار فیلد ترتیب نمایش نباید با مقدار فیلد نام یکسان باشد");
+            }
             //check for model data is correct
            if(ModelState.IsValid)
             {
