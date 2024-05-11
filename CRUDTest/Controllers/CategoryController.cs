@@ -38,6 +38,7 @@ namespace CRUDTest.Controllers
             {
                 _db.Categories.Add(obj);
                 _db.SaveChanges();
+                TempData["success"] = "دسته با موفقیت افزوده شد";
                 return RedirectToAction("Index");
             }
             return View();
@@ -76,6 +77,7 @@ namespace CRUDTest.Controllers
             {
                 _db.Categories.Update(obj);
                 _db.SaveChanges();
+                TempData["success"] = "دسته با موفقیت ویرایش شد";
                 return RedirectToAction("Index");
             }
             return View();
@@ -113,6 +115,7 @@ namespace CRUDTest.Controllers
                 var RemoveFromDb=_db.Categories.Find(id);
                 _db.Categories.Remove(RemoveFromDb);
                 _db.SaveChanges();
+                TempData["success"] = "دسته با موفقیت حذف شد";
                 return RedirectToAction("Index");
             }
             return View();
